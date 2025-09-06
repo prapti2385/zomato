@@ -15,6 +15,12 @@ const ReelFeed = ({
 }) => {
   const videoRefs = useRef(new Map());
 
+  // helper to ensure only real numbers render as children
+  const safeNumber = (v, def = 0) => {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : def;
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -89,7 +95,7 @@ const ReelFeed = ({
                     </svg>
                   </button>
                   <div className="reel-action__count">
-                    {item.likeCount ?? item.likesCount ?? item.likes ?? 0}
+                    {safeNumber(item.likeCount ?? item.likesCount ?? item.likes, 0)}
                   </div>
                 </div>
 
@@ -113,7 +119,7 @@ const ReelFeed = ({
                     </svg>
                   </button>
                   <div className="reel-action__count">
-                    {item.savesCount ?? item.bookmarks ?? item.saves ?? 0}
+                    {safeNumber(item.savesCount ?? item.bookmarks ?? item.saves, 0)}
                   </div>
                 </div>
 
@@ -133,8 +139,11 @@ const ReelFeed = ({
                     </svg>
                   </button>
                   <div className="reel-action__count">
-                    {item.commentsCount ??
-                      (Array.isArray(item.comments) ? item.comments.length : 0)}
+                    {Number.isFinite(Number(item.commentsCount))
+                      ? Number(item.commentsCount)
+                      : Array.isArray(item.comments)
+                      ? item.comments.length
+                      : 0}
                   </div>
                 </div>
               </div>
