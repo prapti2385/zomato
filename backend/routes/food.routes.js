@@ -6,6 +6,7 @@ import {
 } from "../middlewares/auth.middleware.js";
 const router = express.Router();
 import multer from "multer";
+import getFoodPartnerById from "../controllers/food-partner.controller.js";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -15,5 +16,7 @@ const upload = multer({
 router.post("/", authFoodPartnerMiddleware, upload.single("video"), createFood);
 
 router.get("/", authUserMiddleware, getFoodItems);
+
+
 
 export default router;
