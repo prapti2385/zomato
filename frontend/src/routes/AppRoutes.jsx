@@ -24,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/create-food" element={<CreateFoodPage />} />
         <Route path="/food-partner/:id" element={<Profile />} />
+        <Route path="/message" element={<h1>Food item created successfully!</h1>} />
       </Routes>
     </Router>
   );
